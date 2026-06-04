@@ -1,11 +1,11 @@
 import streamlit as st
 
-st.title("Conclusão")
+st.markdown("""
+### Conclusão
 
-st.write("""
-A análise dos dados permitiu identificar padrões relevantes relacionados à evasão escolar no Brasil.
+A análise realizada evidencia que a evasão escolar é um fenômeno influenciado por diferentes fatores, como rede de ensino, região, período analisado, desempenho escolar, renda familiar e acesso à internet.
 
-Os indicadores demonstraram diferenças significativas entre regiões e redes de ensino, além de variações temporais importantes na taxa de evasão.
+Os resultados indicam que a rede pública apresenta maior taxa média de evasão em comparação à rede privada, reforçando a necessidade de ações direcionadas aos grupos mais vulneráveis. Além disso, os KPIs e gráficos desenvolvidos permitem visualizar padrões importantes e acompanhar a evolução da evasão ao longo do tempo.
 
-Os gráficos e KPIs desenvolvidos auxiliam na compreensão do problema e podem apoiar processos de tomada de decisão voltados para políticas educacionais e estratégias de permanência escolar.
+Dessa forma, o dashboard contribui como uma ferramenta de apoio à tomada de decisão, auxiliando na identificação de cenários críticos e no planejamento de estratégias para fortalecer a permanência dos estudantes na escola.
 """)
