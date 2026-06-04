@@ -1,8 +1,9 @@
 import streamlit as st
 
-st.markdown("""
-### Conclusão
 
+st.title("Conclusão")
+
+st.markdown("""
 A análise realizada evidencia que a evasão escolar é um fenômeno influenciado por diferentes fatores, como rede de ensino, região, período analisado, desempenho escolar, renda familiar e acesso à internet.
 
 Os resultados indicam que a rede pública apresenta maior taxa média de evasão em comparação à rede privada, reforçando a necessidade de ações direcionadas aos grupos mais vulneráveis. Além disso, os KPIs e gráficos desenvolvidos permitem visualizar padrões importantes e acompanhar a evolução da evasão ao longo do tempo.
