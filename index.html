@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise de Evasão Escolar no Brasil</title>
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --ink: #172033;
+      --muted: #5c667a;
+      --line: #d9e0ea;
+      --blue: #2457c5;
+      --green: #16845b;
+      --red: #c83f49;
+      --yellow: #d99a21;
+      --panel: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 44px;
+      align-items: center;
+      padding: 52px 0 34px;
+    }
+
+    .eyebrow {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 5vw, 4.8rem);
+      line-height: 1.03;
+      margin: 0 0 22px;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 28px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .button.secondary {
+      background: #ffffff;
+      color: var(--blue);
+    }
+
+    .dashboard-preview {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 22px;
+      box-shadow: 0 18px 44px rgba(23, 32, 51, 0.08);
+    }
+
+    .preview-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 16px;
+      margin-bottom: 18px;
+    }
+
+    .preview-title {
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .status {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .kpi {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: #fbfcff;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 1.35rem;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .kpi span {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .chart {
+      display: grid;
+      gap: 14px;
+      margin: 22px 0;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 80px 1fr 58px;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.9rem;
+    }
+
+    .bar-track {
+      height: 14px;
+      background: #e9edf4;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 999px;
+    }
+
+    .bar.publica {
+      width: 100%;
+      background: var(--red);
+    }
+
+    .bar.privada {
+      width: 40%;
+      background: var(--green);
+    }
+
+    main section {
+      padding: 54px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    h2 {
+      font-size: 2rem;
+      line-height: 1.15;
+      margin: 0 0 18px;
+      letter-spacing: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.08rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 30px 0;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #ffffff;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .split,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+      }
+
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <div class="eyebrow">Projeto G2 | Análise e Visualização de Dados com Python</div>
+        <h1>Análise de Evasão Escolar no Brasil</h1>
+        <p class="lead">
+          Projeto de análise exploratória e visualização de dados voltado à identificação de padrões
+          de evasão escolar em um conjunto de dados simulado sobre o Brasil. A análise compara redes
+          de ensino, regiões, evolução temporal e indicadores associados ao risco de abandono.
+        </p>
+        <div class="actions">
+          <a class="button" href="#" target="_blank" rel="noopener">Abrir dashboard</a>
+          <a class="button secondary" href="#" target="_blank" rel="noopener">Ver repositório</a>
+        </div>
+      </div>
+
+      <div class="dashboard-preview" aria-label="Resumo visual da análise">
+        <div class="preview-head">
+          <div class="preview-title">Resumo executivo</div>
+          <div class="status">Dados analisados</div>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi">
+            <strong>1.480</strong>
+            <span>registros</span>
+          </div>
+          <div class="kpi">
+            <strong>7,26%</strong>
+            <span>evasão média</span>
+          </div>
+          <div class="kpi">
+            <strong>2015-2024</strong>
+            <span>período</span>
+          </div>
+        </div>
+        <div class="chart">
+          <div class="bar-row">
+            <span>Pública</span>
+            <div class="bar-track"><div class="bar publica"></div></div>
+            <strong>10,40%</strong>
+          </div>
+          <div class="bar-row">
+            <span>Privada</span>
+            <div class="bar-track"><div class="bar privada"></div></div>
+            <strong>4,13%</strong>
+          </div>
+        </div>
+        <p>
+          A rede pública apresenta uma taxa média de evasão mais de duas vezes superior à rede privada,
+          indicando um ponto prioritário para investigação e intervenção.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="wrap split">
+        <div>
+          <h2>Objetivo</h2>
+          <p>
+            O objetivo do projeto é aplicar Python, Pandas, Matplotlib, Seaborn e Streamlit em um fluxo
+            completo de análise de dados, desde a leitura e limpeza da base até a construção de KPIs,
+            gráficos e um dashboard interativo.
+          </p>
+        </div>
+        <div class="grid">
+          <div class="card">
+            <h3>Tratamento</h3>
+            <p>Conversão de datas, verificação de dados ausentes, checagem de duplicidades e preparação da base.</p>
+          </div>
+          <div class="card">
+            <h3>Indicadores</h3>
+            <p>Cálculo da taxa média de evasão, evasão por rede de ensino, região, ano e nível de risco.</p>
+          </div>
+          <div class="card">
+            <h3>Dashboard</h3>
+            <p>Visualizações com filtros interativos, tabelas, KPIs dinâmicos e conclusão executiva.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>Principais Insights</h2>
+        <div class="grid">
+          <div class="card">
+            <h3>Rede de ensino</h3>
+            <p>A evasão média na rede pública é de aproximadamente 10,40%, contra 4,13% na rede privada.</p>
+          </div>
+          <div class="card">
+            <h3>Distribuição regional</h3>
+            <p>As regiões apresentam diferenças moderadas, com taxas médias próximas ao intervalo de 7%.</p>
+          </div>
+          <div class="card">
+            <h3>Evolução temporal</h3>
+            <p>Entre 2015 e 2024, a taxa de evasão oscila, com 2016 entre os anos de maior média e 2019 entre os menores.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div>
+          <h2>Tecnologias</h2>
+          <p>
+            O projeto integra análise de dados, visualização e publicação online, atendendo aos requisitos
+            da avaliação G2.
+          </p>
+        </div>
+        <ul>
+          <li>Python para desenvolvimento da análise.</li>
+          <li>Pandas para leitura, tratamento e criação de indicadores.</li>
+          <li>Matplotlib e Seaborn para visualizações exploratórias.</li>
+          <li>Streamlit para construção do dashboard interativo.</li>
+          <li>GitHub para versionamento e GitHub Pages para publicação desta página.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap split">
+        <div>
+          <h2>Conclusão Executiva</h2>
+          <p>
+            A análise mostra que a evasão escolar não se distribui de forma uniforme. O principal destaque
+            está na diferença entre redes de ensino, com maior vulnerabilidade na rede pública. Indicadores
+            como desempenho, renda familiar, acesso à internet e nível de risco ajudam a direcionar ações
+            preventivas e políticas de permanência escolar.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Próximas ações recomendadas</h3>
+          <ul>
+            <li>Acompanhar alunos e regiões classificados com maior risco.</li>
+            <li>Investigar fatores socioeconômicos associados à permanência escolar.</li>
+            <li>Usar o dashboard como apoio para priorização de ações de retenção.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Projeto acadêmico desenvolvido para a disciplina Linguagem de Programação - Análise e Visualização de Dados com Python.
+    </div>
+  </footer>
+</body>
+</html>
