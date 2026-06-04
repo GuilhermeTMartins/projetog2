@@ -120,7 +120,7 @@ streamlit run app.py
 ## Links do Projeto
 
 - Repositório GitHub: `[INSERIR_LINK_DO_GITHUB](https://github.com/GuilhermeTMartins/projetog2)`
-- Página GitHub Pages: `INSERIR_LINK_DO_GITHUB_PAGES`
+- Página GitHub Pages: `[INSERIR_LINK_DO_GITHUB_PAGES](https://guilhermetmartins.github.io/projetog2/)`
 - Dashboard Streamlit: `[INSERIR_LINK_DO_STREAMLIT](https://projetog2-attudk2i3gwgk4fn7tfdcp.streamlit.app/)`
 - Notebook de análise: `notebooks/G2LingProg.ipynb`
 
